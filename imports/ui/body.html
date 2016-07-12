@@ -1,0 +1,43 @@
+<body>
+	<header>
+		<h1> Facebook Test </h1>
+	</header>
+
+	<script>
+	  window.fbAsyncInit = function() {
+	    FB.init({
+	      appId      : '916344958490969',
+	      xfbml      : true,
+	      version    : 'v2.6'
+	    });
+
+	    FB.ui(
+		{
+		  method: 'share',
+		  href: 'https://developers.facebook.com/docs/'
+		}, function(response){});
+
+	  };
+
+	  (function(d, s, id){
+	     var js, fjs = d.getElementsByTagName(s)[0];
+	     if (d.getElementById(id)) {return;}
+	     js = d.createElement(s); js.id = id;
+	     js.src = "//connect.facebook.net/en_US/sdk.js";
+	     fjs.parentNode.insertBefore(js, fjs);
+	   }(document, 'script', 'facebook-jssdk'));
+	</script>
+
+</body>
+
+<!--
+<template name="login">
+  {{#if currentUser}}
+      {{currentUser.profile.name}} -
+      {{currentUser.services.facebook.gender}}
+      <button id="logout">Logout</button>
+  {{else}}
+      <button id="facebook-login" class="btn btn-default"> Login with Facebook</button>
+  {{/if}}
+</template>
+-->

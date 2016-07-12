@@ -1,0 +1,6 @@
+RESOURCES USED
+
+
+Basic fb login:
+
+	* http://bulenttastan.net/login-with-facebook-using-meteor-js/
