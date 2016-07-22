@@ -4,3 +4,7 @@ RESOURCES USED
 Basic fb login:
 
 	* http://bulenttastan.net/login-with-facebook-using-meteor-js/
+
+Album photos:
+
+	* http://stackoverflow.com/questions/5276088/how-do-i-get-album-pictures-using-facebook-api
