@@ -72,15 +72,6 @@ function statusChangeCallback(response) {
 
 */
 
-
-
-
-
-
-
-
-
-
 /* 
 Template.login.events({
     'click #facebook-login': function(event) {

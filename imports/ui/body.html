@@ -1,6 +1,6 @@
 <body src="body.js">
 	<script>
-		var pic1;
+		var pic1, currentAlbumPic;
 
 		window.fbAsyncInit = function() {
 		    FB.init({
@@ -32,27 +32,42 @@
 				}
 			});
 		}
-
-		function displayPicture(){
+		
+		function displayProfilePicture(){
 			FB.api(
 				"/me/picture",
 				function(response) {
 					if(response && !response.error){
-						pic1 = response.data.url;
-						console.log(pic1);
+						//pic1 = response.data.url;
+						console.log(response.data.url);
 
-						var img = document.createElement("img");
+						document.getElementById("profile_picture").src = response.data.url;
+
+						/*var img = document.createElement("img");
 						img.src = pic1;
-						img.width = 300;
-						img.height = 300;
+						img.width = 100;
+						img.height = 100;
 
-						document.body.appendChild(img);
+						document.body.appendChild(img);*/
 
 						//var pic1 = response.data.url; 
 					}
 				}
 			);
+		}
 
+		function displayAlbumPictures(){
+			FB.api(
+				"/me/albums/",
+				function(response) {
+					if(response && !response.error){
+						console.log(response.data.length);
+					}
+					else{
+						console.log("Error reading album photos.");
+					}
+				}
+			);
 		}
 
     //Loads SDK asynchronously
@@ -69,10 +84,15 @@
 		<h1> Facebook Test </h1>
 	</header>
 
-	<button onclick="myFacebookLogin()"> Login with Facebook </button>
+	<button id="login" onclick="myFacebookLogin()"> Login with Facebook </button>
 	<!--<button onclick="getFacebookPhotos()"> Get Profile Picture </button>-->
 
-	<button onclick="displayPicture()"> Display Photo </button>
+	<button onclick="displayProfilePicture()"> Display Profile Photo </button>
+
+	<button onclick="displayAlbumPictures()"> Display Album Picture </button>
+
+	<div><img id="profile_picture" src=""> </div>
+
 </body>
 
 <!--
