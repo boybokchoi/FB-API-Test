@@ -1,11 +1,78 @@
 <body src="body.js">
+	<script>
+		var pic1;
+
+		window.fbAsyncInit = function() {
+		    FB.init({
+		      appId      : '916344958490969',
+		      xfbml      : true,
+		      version    : 'v2.6'
+		    });
+
+		    /*FB.ui(
+			{
+			  method: 'share',
+			  href: 'https://developers.facebook.com/docs/'
+			}, function(response){});*/
+	  	};
+
+	  	function myFacebookLogin() {
+	    	FB.getLoginStatus(function(response) {
+				if (response.status === 'connected') {
+				    console.log('Logged in.');
+				}
+				else {
+					//Popup window with Facebook Login
+				    FB.login(function(){
+				    	//Facebook API Call
+				    	//FB.api('/me/feed', 'post', {message: ''});
+				    	console.log('Posting...');
+
+				    }, {scope: 'publish_actions'});
+				}
+			});
+		}
+
+		function displayPicture(){
+			FB.api(
+				"/me/picture",
+				function(response) {
+					if(response && !response.error){
+						pic1 = response.data.url;
+						console.log(pic1);
+
+						var img = document.createElement("img");
+						img.src = pic1;
+						img.width = 300;
+						img.height = 300;
+
+						document.body.appendChild(img);
+
+						//var pic1 = response.data.url; 
+					}
+				}
+			);
+
+		}
+
+    //Loads SDK asynchronously
+	  (function(d, s, id){
+	     var js, fjs = d.getElementsByTagName(s)[0];
+	     if (d.getElementById(id)) {return;}
+	     js = d.createElement(s); js.id = id;
+	     js.src = "//connect.facebook.net/en_US/sdk.js";
+	     fjs.parentNode.insertBefore(js, fjs);
+	   }(document, 'script', 'facebook-jssdk'));
+    </script>
+
 	<header>
 		<h1> Facebook Test </h1>
 	</header>
 
-	<fb:login-button scope="public_profile,email" onlogin="checkLoginState();">
-	</fb:login-button>
+	<button onclick="myFacebookLogin()"> Login with Facebook </button>
+	<!--<button onclick="getFacebookPhotos()"> Get Profile Picture </button>-->
 
+	<button onclick="displayPicture()"> Display Photo </button>
 </body>
 
 <!--

@@ -2,6 +2,7 @@ import { Template } from 'meteor/templating';
 
 import './body.html';
 
+/*
 function statusChangeCallback(response) {
     console.log('statusChangeCallback');
     console.log(response);
@@ -42,11 +43,11 @@ function statusChangeCallback(response) {
     	statusChangeCallback(response);
     }); 
 
-    /*FB.ui(
+    FB.ui(
 	{
 	  method: 'share',
 	  href: 'https://developers.facebook.com/docs/'
-	}, function(response){});*/
+	}, function(response){});
 
   };
 
@@ -69,13 +70,7 @@ function statusChangeCallback(response) {
     });
   }
 
-
-
-
-
-
-
-
+*/
 
 
 
