@@ -26,9 +26,9 @@
 				    FB.login(function(){
 				    	//Facebook API Call
 				    	//FB.api('/me/feed', 'post', {message: ''});
-				    	console.log('Posting...');
+				    	console.log('Logging in.');
 
-				    }, {scope: 'publish_actions'});
+				    }, {scope: 'user_photos'});
 				}
 			});
 		}
@@ -56,15 +56,43 @@
 			);
 		}
 
-		function displayAlbumPictures(){
+		var albumID = [];
+
+		function getAlbumPictures(){
 			FB.api(
-				"/me/albums/",
+				"/me/albums",
 				function(response) {
 					if(response && !response.error){
-						console.log(response.data.length);
+						console.log(response.data[0].id);
+						for(i = 0; i < response.data.length; i++){
+							albumID.push(response.data[i].id);
+						}
+
+						//****TODO: figure out how to grab individual photo URL from albumID
+						//				- Likely, grab photo object and then its ID, then its URL/source
+
+						FB.api(
+						"/"+albumID[0]+"/photos/",
+							function(response){
+								if(response && !response.error){
+									console.log(response.data);
+									var album = response.data;
+
+									for(i=0;i<5;i++){
+										document.getElementByID("album_photo_"+(i+1)+"").src = album[i].data.url;
+									}
+								}
+								else{
+									console.log("Error reading album photo.")
+								}
+
+							}
+						);
+
+
 					}
 					else{
-						console.log("Error reading album photos.");
+						console.log("Error reading album.");
 					}
 				}
 			);
@@ -89,9 +117,17 @@
 
 	<button onclick="displayProfilePicture()"> Display Profile Photo </button>
 
-	<button onclick="displayAlbumPictures()"> Display Album Picture </button>
+	<button onclick="getAlbumPictures()"> Display Album Picture </button>
 
 	<div><img id="profile_picture" src=""> </div>
+
+	<div>
+	<img id="album_photo_1" src=""> 
+	<img id="album_photo_2" src=""> 
+	<img id="album_photo_3" src=""> 
+	<img id="album_photo_4" src=""> 
+	<img id="album_photo_5" src=""> 	
+	</div>
 
 </body>
 
