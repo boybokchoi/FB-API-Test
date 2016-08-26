@@ -1,8 +1,8 @@
 import { Template } from 'meteor/templating';
 
 import './body.html';
-
 /*
+
 function statusChangeCallback(response) {
     console.log('statusChangeCallback');
     console.log(response);
@@ -70,9 +70,6 @@ function statusChangeCallback(response) {
     });
   }
 
-*/
-
-/* 
 Template.login.events({
     'click #facebook-login': function(event) {
         Meteor.loginWithFacebook({}, function(err){

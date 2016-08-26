@@ -1,10 +1,10 @@
 <body src="body.js">
 	<script>
-		var pic1, currentAlbumPic;
+		var pic1, currentAlbumPic, facebook_access_token;
 
 		window.fbAsyncInit = function() {
 		    FB.init({
-		      appId      : '916344958490969',
+		      appId      : '511419809053236',
 		      xfbml      : true,
 		      version    : 'v2.6'
 		    });
@@ -32,6 +32,12 @@
 				}
 			});
 		}
+
+		function checkLoginState() {
+	    	FB.getLoginStatus(function(response) {
+	    	  statusChangeCallback(response);
+	    	});
+	  	}
 		
 		function displayProfilePicture(){
 			FB.api(
@@ -79,20 +85,17 @@
 									var album = response.data;
 
 									for(i=0;i<5;i++){
-										document.getElementByID("album_photo_"+(i+1)+"").src = album[i].data.url;
+										document.getElementById("album_photo_1").src = album[i].data.url;
 									}
 								}
 								else{
 									console.log("Error reading album photo.")
 								}
-
 							}
 						);
-
-
 					}
 					else{
-						console.log("Error reading album.");
+						console.log("Error reading album. Error: " + JSON.stringify(response));
 					}
 				}
 			);
@@ -112,7 +115,8 @@
 		<h1> Facebook Test </h1>
 	</header>
 
-	<button id="login" onclick="myFacebookLogin()"> Login with Facebook </button>
+	<fb:login-button scope="user_photos" onLogin="checkLoginState();" data-auto-logout-link="true"> </fb:login-button>
+	<!--<button id="login" onclick="myFacebookLogin()"> Login with Facebook </button>-->
 	<!--<button onclick="getFacebookPhotos()"> Get Profile Picture </button>-->
 
 	<button onclick="displayProfilePicture()"> Display Profile Photo </button>
