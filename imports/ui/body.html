@@ -6,7 +6,7 @@
 		    FB.init({
 		      appId      : '511419809053236',
 		      xfbml      : true,
-		      version    : 'v2.6'
+		      version    : 'v2.7'
 		    });
 
 		    /*FB.ui(
@@ -65,31 +65,37 @@
 		var albumID = [];
 
 		function getAlbumPictures(){
+			//Facebook Graph API request for list of albums
 			FB.api(
 				"/me/albums",
 				function(response) {
 					if(response && !response.error){
-						console.log(response.data[0].id);
+						console.log("response.data[0].id = " + response.data[0].id + "| length: " + response.data.length);
 						for(i = 0; i < response.data.length; i++){
 							albumID.push(response.data[i].id);
+							console.log("object " + i + " : " + response.data[i]);
 						}
 
-						//****TODO: figure out how to grab individual photo URL from albumID
-						//				- Likely, grab photo object and then its ID, then its URL/source
+						console.log("albumID array: " + albumID);
 
+						//Request specific album: list of photo objects
 						FB.api(
-						"/"+albumID[0]+"/photos/",
+						"/"+albumID[1]+"/photos/",
+						{fields: 'picture'},
 							function(response){
 								if(response && !response.error){
-									console.log(response.data);
+									console.log("response.data: " + response);
 									var album = response.data;
 
-									for(i=0;i<5;i++){
-										document.getElementById("album_photo_1").src = album[i].data.url;
-									}
+									console.log("album[0] = " + album[0].id);
+
+									//document.getElementById("album_photo_1").src = album[0].picture;	
+									for(i = 0; i < album.length; i++){
+										document.getElementById("album_photo_"+(i+1)).src = album[i].picture;
+									}							
 								}
 								else{
-									console.log("Error reading album photo.")
+									console.log("Error reading album photo.");
 								}
 							}
 						);
